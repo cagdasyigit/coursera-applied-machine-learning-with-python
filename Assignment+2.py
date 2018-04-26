@@ -138,9 +138,20 @@ def answer_two():
 
 def answer_three():
     
-    # Your code here
+    r2_scores = answer_two()
+    df = pd.DataFrame({'training_score':r2_scores[0], 'test_score':r2_scores[1]})
+    df['diff'] = df['training_score'] - df['test_score']
     
-    return (0, 9, 6) # Return your answer
+    df = df.sort(['diff'])
+    good_gen = df.index[0]
+    
+    df = df.sort(['diff'], ascending = False)
+    overfitting = df.index[0]
+    
+    df = df.sort(['training_score'])
+    underfitting = df.index[0]
+    
+    return (underfitting,overfitting,good_gen)
 
 
 # ### Question 4
